@@ -1,11 +1,8 @@
 {
   "appId": "dz.sonagachifr.app",
   "appName": "sonagachifr",
-  "webDir": ".",
+  "webDir": "www",
   "backgroundColor": "#ffffff",
-  "android": {
-    "allowMixedContent": true
-  },
   "server": {
     "androidScheme": "https"
   }
