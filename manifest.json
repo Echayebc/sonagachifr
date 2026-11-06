@@ -1,0 +1,26 @@
+{
+  "name": "sonagachifr",
+  "short_name": "sonagachifr",
+  "description": "sonagachifr - Calculateur facture Sonelgaz - Electricite + Gaz - 10 factures",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#0a6c2e",
+  "lang": "fr",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1087/1087818.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1087/1087818.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
