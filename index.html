@@ -1,105 +1,113 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>sonagachifr</title>
-<meta name="theme-color" content="#0a6c2e">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="sonagachifr">
-<link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1087/1087818.png">
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>sonagachifr - CREG D/22-15/CD</title>
+<link rel="manifest" href="manifest.json">
 <style>
-*{box-sizing:border-box} body{font-family:Arial;background:#f0f2f5;padding:10px;margin:0;padding-bottom:90px}
-.box{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 2px 6px #0001}
-h2{text-align:center;color:#0a6c2e;margin:5px} h3{color:#0a6c2e;border-bottom:1px solid #eee;padding-bottom:5px}
-label{display:block;margin:9px 0 4px;font-weight:bold;font-size:14px}
-input,select{width:100%;padding:11px;border:1px solid #ccc;border-radius:10px;font-size:17px;text-align:center}
-button{width:100%;padding:14px;border:none;border-radius:12px;font-size:18px;font-weight:bold;cursor:pointer}
-.btn-green{background:#0a6c2e;color:#fff} .btn-orange{background:#e67e22;color:#fff;margin-top:8px} .btn-red{background:#c0392b;color:#fff;margin-top:8px} .btn-blue{background:#2980b9;color:#fff;margin-top:8px}
-.res{background:#f7fff7;border:2px solid #0a6c2e;border-radius:12px;padding:12px;margin-top:12px;line-height:1.9;font-size:15px}
-.total{font-size:21px;font-weight:bold;color:#d00;text-align:center}
-.hist-item{background:#fff;border:1px solid #ddd;border-radius:12px;padding:10px;margin-bottom:8px;font-size:14px;line-height:1.7}
-.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:bold}
-.up{background:#ffdddd;color:#c00} .down{background:#ddffdd;color:#080}
-.bar{height:12px;background:#eee;border-radius:20px;overflow:hidden;margin:3px 0}
-.bar>div{height:100%;background:#0a6c2e}
-.topbar{position:sticky;top:0;background:#0a6c2e;color:#fff;padding:12px;border-radius:0 0 14px 14px;text-align:center;z-index:10;margin:-10px -10px 10px -10px}
-</style>
-</head>
-<body>
-<div class="topbar"><b>💡🔥 sonagachifr</b><br><small>CREG D/22-15/CD - تحفظ 10 فواتير</small></div>
-<div class="box">
-<label>اسم الفاتورة / الثلاثي</label>
-<input type="text" id="nomFacture" placeholder="مثال: الثلاثي 3 - 2026">
-<label>نوع الكهرباء</label>
-<select id="tarifElec" onchange="maj()">
-<option value="54M">54M - دار - 4 أشطر</option>
-<option value="54NM">54NM - محل - 3 أشطر</option>
-<option value="52M">52M / 52NM - مزدوجة - 2 عدادات</option>
-<option value="51M">51M - ثلاثية - 3 عدادات</option>
-<option value="AUCUN">ما عنديش كهرباء</option>
-</select>
-<label>PMD - القدرة</label>
-<select id="pmd"><option>4</option><option selected>6</option><option>12</option><option>20</option><option>40</option></select>
-<label>Coef كهرباء</label><input type="number" id="coefE" value="1.0">
+body{font-family:system-ui;background:#f2f7f2;margin:0;padding:12px}
+.card{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px #0001}
+h1{text-align:center;color:#0a6c2e;margin:4px}h3{color:#0a6c2e;margin:0 0 8px}
+label{font-weight:bold;display:block;margin-top:10px}
+input,select{width:100%;padding:11px;border:1px solid #ccc;border-radius:10px;margin-top:4px;font-size:16px;box-sizing:border-box}
+button{padding:12px;border:0;border-radius:12px;font-weight:bold;cursor:pointer;font-size:16px}
+.btn-main{background:#0a6c2e;color:#fff;width:100%;margin-top:12px}
+.btn-save{background:#ffc107;width:100%;margin-top:8px}
+.type-btn{flex:1;padding:12px;border:2px solid #0a6c2e;background:#fff;color:#0a6c2e}
+.type-btn.active{background:#0a6c2e;color:#fff}
+.flex{display:flex;gap:8px}
+.help-btn{background:#fff3cd;border:1px solid #ffc107;color:#856404;border-radius:20px;padding:2px 10px;font-size:13px;cursor:pointer;margin-right:6px}
+.help-box{display:none;background:#fffbe6;border:1px solid #ffe08a;border-radius:12px;padding:10px;font-size:14px;line-height:1.7;margin:6px 0}
+.res{background:#e8f5e9;border-radius:14px;padding:14px;font-size:17px;line-height:1.9}
+.small{font-size:13px;color:#555}
+.saved{border:1px solid #ddd;border-radius:12px;padding:10px;margin-top:8px}
+</style></head><body>
+<h1>⚡ sonagachifr 🔥</h1><p style="text-align:center" class="small">CREG D/22-15/CD - أحادي وثلاثي فقط - حفظ 10 فواتير</p>
+
+<div class="card">
+<h3>1 - واش هو الطور تاعك؟</h3>
+<div class="flex">
+<button type="button" id="bMono" class="type-btn active" onclick="setPhase('mono')">⚡ أحادي الطور<br><small>220V - 2 خيوط</small></button>
+<button type="button" id="bTri" class="type-btn" onclick="setPhase('tri')">⚡⚡⚡ ثلاثي الطور<br><small>380V - 4 خيوط</small></button>
 </div>
-<div class="box" id="elecSimple">
-<h3>⚡ الكهرباء</h3>
-<label>العداد القديم A. Index</label><input type="number" id="e_old" placeholder="4721">
-<label>العداد الجديد N. Index</label><input type="number" id="e_new" placeholder="5288">
+<div id="hPhase" class="help-box" style="display:block"><b>أحادي:</b> دار عادية، 1 ضو + 1 ناتر.<br><b>ثلاثي:</b> فيلا كبيرة، ورشة، مضخة كبيرة، 3 ضو + 1 ناتر.</div>
+
+<label>نوع الزبون <button type="button" class="help-btn" onclick="toggleHelp('hType')">؟ توضيح</button></label>
+<div id="hType" class="help-box"><b>54M دار:</b> 4 أشطر، TVA 9% حتى 250 kWh.<br><b>54NM محل / فلاحة:</b> 3 أشطر، TVA 19% على كلش، بلا ضريبة سكن.</div>
+<select id="client"><option value="M">54M - دار</option><option value="NM">54NM - محل / فلاحة / غير دار</option></select>
+
+<label>اسم الفاتورة <button type="button" class="help-btn" onclick="toggleHelp('hName')">؟ توضيح</button></label>
+<div id="hName" class="help-box">اسم باش تتفكرو، مثال: الثلاثي 1 - دار</div>
+<input id="name" placeholder="مثال: الثلاثي 1">
+
+<label>PMD - القدرة <button type="button" class="help-btn" onclick="toggleHelp('hPMD')">؟ توضيح</button></label>
+<div id="hPMD" class="help-box">أحادي: 4 / 6 / 12 - ثلاثي: 20 / 40 / 60 / 80 - تلقاها في فاتورتك. سعرها 4.37 دج لكل kW في الشهر.</div>
+<select id="pmd"></select>
+
+<label>العداد القديم كهرباء <button type="button" class="help-btn" onclick="toggleHelp('hOld')">؟ توضيح</button></label>
+<div id="hOld" class="help-box">الرقم القديم اللي في الفاتورة اللي فاتت.</div>
+<input id="oldE" type="number" placeholder="مثال 4721">
+
+<label>العداد الجديد كهرباء <button type="button" class="help-btn" onclick="toggleHelp('hNew')">؟ توضيح</button></label>
+<div id="hNew" class="help-box">الرقم الجديد اللي تشوفو درك في العداد. الاستهلاك = الجديد - القديم.</div>
+<input id="newE" type="number" placeholder="مثال 5288">
+
+<label>Coef كهرباء <button type="button" class="help-btn" onclick="toggleHelp('hCoef')">؟ توضيح</button></label>
+<div id="hCoef" class="help-box">خليه 1.0 ديما، غير المحلات الكبيرة يبدلوه.</div>
+<input id="coef" type="number" value="1" step="0.1">
+
+<label>استهلاك الغاز thermie <button type="button" class="help-btn" onclick="toggleHelp('hGas')">؟ توضيح</button></label>
+<div id="hGas" class="help-box">إذا ما عندكش غاز دير 0. الغاز كاين غير للدار. 1 م³ ≈ 9.7 thermie. الفلاحة / المحل اللي ما عندوش غاز يدير 0.</div>
+<input id="gas" type="number" value="0">
+
+<label>ضريبة السكن <button type="button" class="help-btn" onclick="toggleHelp('hTax')">؟ توضيح</button></label>
+<div id="hTax" class="help-box">بلدية عادية 100 دج، مقر دائرة 200 دج. غير للدار، المحل / الفلاحة 0.</div>
+<select id="tax"><option value="100">100 دج - بلدية عادية</option><option value="200">200 دج - مقر دائرة / ولاية</option><option value="0">0 - محل / فلاحة</option></select>
+
+<button class="btn-main" onclick="calc()">🧮 احسب الفاتورة</button>
+<button class="btn-save" onclick="saveBill()">💾 حفظ الفاتورة (10)</button>
 </div>
-<div class="box" id="elecDouble" style="display:none">
-<h3>⚡ 52M / 51M</h3>
-<label>Cadran 1 قديم</label><input type="number" id="c1_old">
-<label>Cadran 1 جديد</label><input type="number" id="c1_new">
-<label>Cadran 2 قديم</label><input type="number" id="c2_old">
-<label>Cadran 2 جديد</label><input type="number" id="c2_new">
-<div id="c3div" style="display:none">
-<label>Cadran 3 قديم</label><input type="number" id="c3_old">
-<label>Cadran 3 جديد</label><input type="number" id="c3_new">
-</div>
-</div>
-<div class="box">
-<h3>🔥 الغاز</h3>
-<label>نوع الغاز</label>
-<select id="tarifGaz"><option value="23M">23M - دار</option><option value="23NM">23NM - محل</option><option value="AUCUN">ما عنديش غاز</option></select>
-<label>العداد القديم A. Index</label><input type="number" id="g_old" placeholder="5204">
-<label>العداد الجديد N. Index</label><input type="number" id="g_new" placeholder="5940">
-<label>PCS</label><input type="number" id="pcs" value="8.9">
-</div>
-<div class="box">
-<label>ضريبة السكن</label>
-<select id="taxeHab"><option value="100">100 دج - بلدية عادية</option><option value="200">200 دج - مقر دائرة</option><option value="0">0</option></select>
-<label>الدفع</label>
-<select id="paiement"><option value="cash">نقدا - مع الطابع</option><option value="carte">بطاقة - بدون طابع</option></select>
-</div>
-<button class="btn-green" onclick="calc()">احسب الفاتورة 💰</button>
-<div class="res" id="res" style="display:none"></div>
-<button class="btn-orange" id="saveBtn" style="display:none" onclick="saveFacture()">💾 حفظ هذه الفاتورة</button>
-<div class="box">
-<h3>📂 الفواتير المحفوظة - <span id="count">0</span> / 10</h3>
-<div id="hist"></div>
-<button class="btn-blue" onclick="exportData()">📤 تصدير / مشاركة</button>
-<button class="btn-red" onclick="clearAll()">🗑️ حذف كل الفواتير</button>
-</div>
+
+<div class="card" id="result" style="display:none"></div>
+<div class="card"><h3>💾 الفواتير المحفوظة</h3><div id="list"></div><button onclick="clearAll()" style="background:#eee;width:100%;margin-top:8px">مسح الكل</button></div>
+
 <script>
-function maj(){let te=document.getElementById('tarifElec').value;document.getElementById('elecSimple').style.display=(te=='52M'||te=='51M'||te=='AUCUN')?'none':'block';document.getElementById('elecDouble').style.display=(te=='52M'||te=='51M')?'block':'none';document.getElementById('c3div').style.display=(te=='51M')?'block':'none';}
-function trancheElec54(kwh,isNM){let r=kwh,p=0,d9=0,d19=0;if(!isNM){let t1=Math.min(r,125);p+=t1*1.7787;d9+=t1*1.7787;r-=t1;if(r>0){let t2=Math.min(r,125);p+=t2*4.1789;d9+=t2*4.1789;r-=t2;}if(r>0){let t3=Math.min(r,750);p+=t3*4.8120;d19+=t3*4.8120;r-=t3;}if(r>0){p+=r*5.4796;d19+=r*5.4796;}}else{let t1=Math.min(r,250);p+=t1*4.1789;d9+=t1*4.1789;r-=t1;if(r>0){let t2=Math.min(r,750);p+=t2*4.8120;d19+=t2*4.8120;r-=t2;}if(r>0){p+=r*5.4796;d19+=r*5.4796;}}return{p,d9,d19};}
-function trancheGaz(th,isNM){let r=th,p=0,d9=0,d19=0;if(!isNM){let t1=Math.min(r,1125);p+=t1*0.1682;d9+=t1*0.1682;r-=t1;if(r>0){let t2=Math.min(r,1375);p+=t2*0.3245;d9+=t2*0.3245;r-=t2;}if(r>0){let t3=Math.min(r,5000);p+=t3*0.4025;d19+=t3*0.4025;r-=t3;}if(r>0){p+=r*0.4599;d19+=r*0.4599;}}else{let t1=Math.min(r,2500);p+=t1*0.3245;d9+=t1*0.3245;r-=t1;if(r>0){let t2=Math.min(r,5000);p+=t2*0.4025;d19+=t2*0.4025;r-=t2;}if(r>0){p+=r*0.4599;d19+=r*0.4599;}}return{p,d9,d19};}
-let lastCalc=null;
-function calc(){let te=document.getElementById('tarifElec').value,tg=document.getElementById('tarifGaz').value;let pmd=parseFloat(document.getElementById('pmd').value)||6;let coefE=parseFloat(document.getElementById('coefE').value)||1;let pcs=parseFloat(document.getElementById('pcs').value)||8.9;let taxeHab=parseFloat(document.getElementById('taxeHab').value)||0;let isCash=document.getElementById('paiement').value=='cash';let pE=0,d9E=0,d19E=0,consoE=0,detailE="",primePMD=0;if(te!='AUCUN'){primePMD=pmd*4.37*3;if(te=='54M'||te=='54NM'){consoE=((parseFloat(document.getElementById('e_new').value)||0)-(parseFloat(document.getElementById('e_old').value)||0))*coefE;let r=trancheElec54(consoE,te=='54NM');pE=r.p;d9E=r.d9;d19E=r.d19;detailE=`⚡ كهرباء ${te}: <b>${consoE.toFixed(0)} kWh = ${pE.toFixed(2)} دج</b><br>`;}else if(te=='52M'){let c1=((parseFloat(document.getElementById('c1_new').value)||0)-(parseFloat(document.getElementById('c1_old').value)||0))*coefE;let c2=((parseFloat(document.getElementById('c2_new').value)||0)-(parseFloat(document.getElementById('c2_old').value)||0))*coefE;consoE=c1+c2;pE=c1*8.1147+c2*1.7807;d19E=pE;detailE=`⚡ 52M: C1 <b>${c1}×8.1147</b> + C2 <b>${c2}×1.7807</b> = <b>${pE.toFixed(2)} دج</b><br>`;}else if(te=='51M'){let c1=((parseFloat(document.getElementById('c1_new').value)||0)-(parseFloat(document.getElementById('c1_old').value)||0))*coefE;let c2=((parseFloat(document.getElementById('c2_new').value)||0)-(parseFloat(document.getElementById('c2_old').value)||0))*coefE;let c3=((parseFloat(document.getElementById('c3_new').value)||0)-(parseFloat(document.getElementById('c3_old').value)||0))*coefE;consoE=c1+c2+c3;pE=c1*8.1147+c2*4.8120+c3*1.7787;d19E=pE;detailE=`⚡ 51M: <b>${pE.toFixed(2)} دج</b><br>`;}}
-let pG=0,d9G=0,d19G=0,consoTh=0,consoM3=0,detailG="",fixeGaz=0;if(tg!='AUCUN'){fixeGaz=28.5*3;consoM3=(parseFloat(document.getElementById('g_new').value)||0)-(parseFloat(document.getElementById('g_old').value)||0);consoTh=consoM3*pcs;let r=trancheGaz(consoTh,tg=='23NM');pG=r.p;d9G=r.d9;d19G=r.d19;detailG=`🔥 غاز ${tg}: <b>${consoM3.toFixed(1)} m³ = ${consoTh.toFixed(0)} Th = ${pG.toFixed(2)} دج</b><br>`;}
-let ht=pE+primePMD+pG+fixeGaz;let base9=d9E+d9G+primePMD+fixeGaz,base19=d19E+d19G;let tva9=base9*0.09,tva19=base19*0.19;let droit=0;if(te!='AUCUN'){if(consoE>390)droit=200;else if(consoE>190)droit=100;else if(consoE>70)droit=25;}let total=ht+tva9+tva19+droit+taxeHab;let timbre=isCash?Math.max(5,Math.ceil(total/100)):0;let totalCash=total+timbre;lastCalc={nom:document.getElementById('nomFacture').value||('فاتورة '+(new Date().toLocaleDateString('ar-DZ'))),date:new Date().toISOString().slice(0,10),consoE,consoTh,consoM3,pE,pG,total,totalCash,tarifE:te,tarifG:tg};let h=detailE+detailG+`HT: <b>${ht.toFixed(2)} دج</b> - TVA 9%: <b>${tva9.toFixed(2)}</b> - TVA 19%: <b>${tva19.toFixed(2)}</b><br>الحق الثابت: <b>${droit} دج</b> - ضريبة السكن: <b>${taxeHab} دج</b><hr><div class="total">المجموع: ${total.toFixed(2)} دج</div>`;if(isCash)h+=`<div class="total">نقدا + طابع: ${totalCash.toFixed(2)} دج</div>`;document.getElementById('res').style.display='block';document.getElementById('res').innerHTML=h;document.getElementById('saveBtn').style.display='block';}
-function getHist(){try{return JSON.parse(localStorage.getItem('sonelgaz_hist')||'[]')}catch(e){return[]}}
-function saveFacture(){if(!lastCalc){alert('احسب قبل ما تحفظ');return;}let h=getHist();h=h.filter(x=>x.nom!==lastCalc.nom);h.unshift(lastCalc);if(h.length>10)h=h.slice(0,10);localStorage.setItem('sonelgaz_hist',JSON.stringify(h));alert('✅ تم الحفظ! عندك الآن '+h.length+' فاتورة');let en=document.getElementById('e_new').value;if(en)document.getElementById('e_old').value=en;let gn=document.getElementById('g_new').value;if(gn)document.getElementById('g_old').value=gn;document.getElementById('e_new').value='';document.getElementById('g_new').value='';document.getElementById('nomFacture').value='';renderHist();}
-function renderHist(){let h=getHist();document.getElementById('count').innerText=h.length;let div=document.getElementById('hist');if(h.length==0){div.innerHTML='<p style="text-align:center;color:#888">ما كاين حتى فاتورة محفوظة</p>';return;}let maxE=Math.max(...h.map(x=>x.consoE||0),1);let maxG=Math.max(...h.map(x=>x.consoTh||0),1);div.innerHTML=h.map((f,i)=>{let prev=h[i+1];let diffE=prev?(f.consoE-prev.consoE):0;let diffG=prev?(f.consoTh-prev.consoTh):0;let badgeE=prev?(diffE>0?`<span class="badge up">▲ +${diffE.toFixed(0)} kWh</span>`:`<span class="badge down">▼ ${diffE.toFixed(0)} kWh</span>`):'';let badgeG=prev?(diffG>0?`<span class="badge up">▲ +${diffG.toFixed(0)} Th</span>`:`<span class="badge down">▼ ${diffG.toFixed(0)} Th</span>`):'';return `<div class="hist-item"><b>📄 ${f.nom}</b> - ${f.date} <button onclick="delOne(${i})" style="float:left;background:none;border:none;font-size:18px;width:auto;padding:0">🗑️</button><br>⚡ <b>${(f.consoE||0).toFixed(0)} kWh</b> ${badgeE}<div class="bar"><div style="width:${((f.consoE||0)/maxE*100)}%"></div></div>🔥 <b>${(f.consoTh||0).toFixed(0)} Th</b> ${badgeG}<div class="bar"><div style="width:${((f.consoTh||0)/maxG*100)}%;background:#e67e22"></div></div>💰 <b>${f.total.toFixed(2)} دج</b> - ${f.tarifE} / ${f.tarifG}</div>`;}).join('');}
-function delOne(i){let h=getHist();h.splice(i,1);localStorage.setItem('sonelgaz_hist',JSON.stringify(h));renderHist();}
-function clearAll(){if(confirm('تحذف كل الفواتير؟')){localStorage.removeItem('sonelgaz_hist');renderHist();}}
-function exportData(){let h=getHist();if(h.length==0){alert('ما كاين والو');return;}let txt="فواتير سونلغاز\n\n"+h.map(f=>`${f.nom} - ${f.date}\nكهرباء: ${f.consoE.toFixed(0)} kWh - غاز: ${f.consoTh.toFixed(0)} Th - المجموع: ${f.total.toFixed(2)} دج`).join("\n---\n");if(navigator.share){navigator.share({title:'فواتير سونلغاز',text:txt}).catch(()=>{alert(txt)});}else{alert(txt);}}
-if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
-renderHist();
-</script>
-</body>
-</html>
+let phase='mono';
+function toggleHelp(id){let e=document.getElementById(id);e.style.display=e.style.display=='block'?'none':'block';}
+function setPhase(p){phase=p;document.getElementById('bMono').className='type-btn'+(p=='mono'?' active':'');document.getElementById('bTri').className='type-btn'+(p=='tri'?' active':'');let s=document.getElementById('pmd');s.innerHTML='';let vals=p=='mono'?[4,6,12]:[20,40,60,80];vals.forEach(v=>{let o=document.createElement('option');o.value=v;o.text=v+' kW';s.appendChild(o);});if(p=='mono')s.value=6;else s.value=20;}
+setPhase('mono');
+function tierElec(kwh,type){let d=0,det=[];if(type=='M'){let t=[[125,1.7787],[125,4.1789],[750,4.8120],[1e9,5.4796]];let r=kwh;for(let [q,pr] of t){let u=Math.min(r,q);if(u>0){d+=u*pr;det.push(u+' kWh × '+pr+' = '+(u*pr).toFixed(2));r-=u;}}}else{let t=[[250,4.1789],[750,4.8120],[1e9,5.4796]];let r=kwh;for(let [q,pr] of t){let u=Math.min(r,q);if(u>0){d+=u*pr;det.push(u+' kWh × '+pr+' = '+(u*pr).toFixed(2));r-=u;}}}return {total:d,det}; }
+function tierGas(th,type){let d=0,det=[];if(type=='M'){let t=[[1125,0.1682],[1375,0.3245],[5000,0.4025],[1e9,0.4599]];let r=th;for(let [q,pr] of t){let u=Math.min(r,q);if(u>0){d+=u*pr;det.push(u+' th × '+pr+' = '+(u*pr).toFixed(2));r-=u;}}}else{let t=[[2500,0.3245],[5000,0.4025],[1e9,0.4599]];let r=th;for(let [q,pr] of t){let u=Math.min(r,q);if(u>0){d+=u*pr;det.push(u+' th × '+pr+' = '+(u*pr).toFixed(2));r-=u;}}}return {total:d,det};}
+let last=null;
+function calc(){
+let type=document.getElementById('client').value;
+let kwh=Math.max(0,(+document.getElementById('newE').value||0)-(+document.getElementById('oldE').value||0))*(+document.getElementById('coef').value||1);
+let th=+document.getElementById('gas').value||0;
+let pmd=+document.getElementById('pmd').value;
+let e=tierElec(kwh,type);let g=tierGas(th,type);
+let pmdCost=pmd*4.37*3;
+let tax=type=='M'?+document.getElementById('tax').value:0;
+let droit=kwh<=70?0:kwh<=190?25:kwh<=390?100:200;
+// TVA: 9% حتى 250 kWh و 2500 th + PMD، الباقي 19%
+let elec9=Math.min(kwh,250), elec19=Math.max(0,kwh-250);
+let e9=0,e19=0; // تبسيط: نحسب TVA على المبلغ كامل بالنسبة
+let baseE=e.total, baseG=g.total;
+// TVA دقيقة: نوزعو
+let tva=0;
+if(type=='M'){tva=(Math.min(baseE,250*4.1789)+Math.min(baseG,2500*0.3245)+pmdCost)*0.09 + Math.max(0,baseE-250*4.1789)*0.19 + Math.max(0,baseG-2500*0.3245)*0.19;}
+else{tva=(baseE+baseG+pmdCost)*0.19;}
+let total=baseE+baseG+pmdCost+tax+droit+tva;
+last={name:document.getElementById('name').value||('فاتورة '+(new Date().toLocaleDateString('ar-DZ'))),phase:phase,type:type,kwh:kwh,th:th,pmd:pmd,total:total.toFixed(2),date:new Date().toLocaleDateString('ar-DZ')};
+let html='<h3>النتيجة - '+(phase=='mono'?'أحادي 220V':'ثلاثي 380V')+' - '+(type=='M'?'دار 54M':'محل/فلاحة 54NM')+'</h3>';
+html+='<b>استهلاك كهرباء:</b> '+kwh.toFixed(0)+' kWh<br>'+e.det.join('<br>')+'<br><b>= '+e.total.toFixed(2)+' دج</b><hr>';
+html+='<b>غاز:</b> '+th+' th<br>'+g.det.join('<br>')+'<br><b>= '+g.total.toFixed(2)+' دج</b><hr>';
+html+='PMD: '+pmd+' kW × 4.37 × 3 = '+pmdCost.toFixed(2)+' دج<br>';
+html+='الحق الثابت: '+droit+' دج<br>ضريبة السكن: '+tax+' دج<br>TVA: '+tva.toFixed(2)+' دج<hr>';
+html+='<h2 style="color:#0a6c2e;text-align:center">المجموع: '+total.toFixed(2)+' دج</h2><p class="small">CREG D/22-15/CD - PMD 4.37 دج/kW/شهر - TVA 9%/19%</p>';
+let r=document.getElementById('result');r.style.display='block';r.innerHTML=html;
+}
+function getSaved(){return JSON.parse(localStorage.getItem('sonaga10')||'[]');}
+function saveBill(){if(!last){alert('احسب الأول');return;}let a=getSaved();a.unshift(last);a=a.slice(0,10);localStorage.setItem('sonaga10',JSON.stringify(a));render();}
+function render(){let a=getSaved();let d=document.getElementById('list');if(!a.length){d.innerHTML='<p class="small">ما كاش فواتير محفوظة</p>';return;}d.innerHTML=a.map((b,i)=>'<div class="saved"><b>'+b.name+'</b> - '+b.date+'<br>'+(b.phase=='mono'?'أحادي':'ثلاثي')+' - '+(b.type=='M'?'دار':'محل/فلاحة')+' - '+b.kwh+' kWh - PMD '+b.pmd+'<br><b style="color:#0a6c2e">'+b.total+' دج</b> <button onclick="delBill('+i+')" style="background:#ffcccc;padding:4px 8px;font-size:12px">حذف</button></div>').join('');}
+function delBill(i){let a=getSaved();a.splice(i,1);localStorage.setItem('sonaga10',JSON.stringify(a));render();}
+function clearAll(){localStorage.removeItem('sonaga10');render();}
+render();
+</script></body></html>
