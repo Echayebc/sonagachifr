@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>sonagachifr - CREG D/22-15/CD</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a6c2e">
+<link rel="icon" href="icon.jpeg">
+<link rel="apple-touch-icon" href="icon.jpeg">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
 body{font-family:system-ui;background:#f2f7f2;margin:0;padding:12px}
 .card{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px #0001}
@@ -52,7 +59,6 @@ button{padding:12px;border:0;border-radius:12px;font-weight:bold;cursor:pointer;
 <div id="hPMD" class="help-box">أحادي: 4 / 6 / 12 - ثلاثي: 20 / 40 / 60 / 80 - سعرها 4.37 دج لكل kW في الشهر. تلقاها في فاتورتك.</div>
 <select id="pmd"></select>
 
-<!-- ===== ثلاثي ===== -->
 <div id="boxTri">
 <label>عداد الكهرباء القديم kWh</label>
 <input id="oldE" type="number" placeholder="مثال 4721">
@@ -61,21 +67,17 @@ button{padding:12px;border:0;border-radius:12px;font-weight:bold;cursor:pointer;
 <label>Coef كهرباء <button type="button" class="help-btn" onclick="tg('hCoef')">؟</button></label>
 <div id="hCoef" class="help-box">خليه 1.0 ديما، غير المحلات الكبيرة يبدلوه.</div>
 <input id="coef" type="number" value="1" step="0.1">
-
 <label>عداد الغاز القديم m³ <button type="button" class="help-btn" onclick="tg('hGO')">؟ توضيح</button></label>
 <div id="hGO" class="help-box">الرقم القديم تاع عداد الغاز، تلقاه في الفاتورة اللي فاتت. إذا ما عندكش غاز دير 0 في القديم والجديد.</div>
 <input id="oldG" type="number" value="0" placeholder="مثال 1200">
-
 <label>عداد الغاز الجديد m³ <button type="button" class="help-btn" onclick="tg('hGN')">؟ توضيح</button></label>
 <div id="hGN" class="help-box">الرقم الجديد اللي تشوفو درك في عداد الغاز. الاستهلاك = الجديد - القديم.</div>
 <input id="newG" type="number" value="0" placeholder="مثال 1350">
-
 <label>Coef الغاز <button type="button" class="help-btn" onclick="tg('hCoefG')">؟</button></label>
 <div id="hCoefG" class="help-box">1 m³ ≈ 9.7 thermie. هذا هو اللي مكتوب في فاتورتك تاع سونلغاز.</div>
 <input id="coefG" type="number" value="9.7" step="0.1">
 </div>
 
-<!-- ===== عام كامل ===== -->
 <div id="boxYear" style="display:none">
 <p class="small">في العام، دخل الاستهلاك مباشرة لكل ثلاثي (kWh و thermie). إذا عندك غير رقم العام، قسمو على 4.</p>
 <div class="qbox"><b>الثلاثي 1 - جانفي / مارس</b><label>كهرباء kWh</label><input id="yE1" type="number" value="0"><label>غاز thermie</label><input id="yG1" type="number" value="0"></div>
@@ -93,7 +95,6 @@ button{padding:12px;border:0;border-radius:12px;font-weight:bold;cursor:pointer;
 </div>
 
 <div class="card" id="result" style="display:none"></div>
-
 <div class="card"><h3>💾 الفواتير المحفوظة</h3><div id="list"></div><button onclick="clearAll()" style="background:#eee;width:100%;margin-top:8px">مسح الكل</button></div>
 
 <script>
@@ -102,10 +103,8 @@ function tg(id){let e=document.getElementById(id);e.style.display=e.style.displa
 function setMode(m){mode=m;document.getElementById('mTriBtn').className='type-btn'+(m=='tri'?' active':'');document.getElementById('mYearBtn').className='type-btn'+(m=='year'?' active':'');document.getElementById('boxTri').style.display=m=='tri'?'block':'none';document.getElementById('boxYear').style.display=m=='year'?'block':'none';}
 function setPhase(p){phase=p;document.getElementById('bMono').className='type-btn'+(p=='mono'?' active':'');document.getElementById('bTri').className='type-btn'+(p=='tri'?' active':'');let s=document.getElementById('pmd');s.innerHTML='';let vals=p=='mono'?[4,6,12]:[20,40,60,80];vals.forEach(v=>{let o=document.createElement('option');o.value=v;o.text=v+' kW';s.appendChild(o);});s.value=p=='mono'?6:20;}
 setPhase('mono');
-
 function tierE(kwh,type){let d=0,det=[];let t=type=='M'?[[125,1.7787],[125,4.1789],[750,4.8120],[1e9,5.4796]]:[[250,4.1789],[750,4.8120],[1e9,5.4796]];let r=kwh;for(let [q,pr] of t){let u=Math.min(r,q);if(u>0){d+=u*pr;det.push(u.toFixed(0)+' kWh × '+pr+' = '+(u*pr).toFixed(2)+' دج');r-=u;}}return{total:d,det};}
 function tierG(th,type){let d=0,det=[];let t=type=='M'?[[1125,0.1682],[1375,0.3245],[5000,0.4025],[1e9,0.4599]]:[[2500,0.3245],[5000,0.4025],[1e9,0.4599]];let r=th;for(let [q,pr] of t){let u=Math.min(r,q);if(u>0){d+=u*pr;det.push(u.toFixed(0)+' th × '+pr+' = '+(u*pr).toFixed(2)+' دج');r-=u;}}return{total:d,det};}
-
 function calcOne(kwh,th,type,pmd,tax){
 let e=tierE(kwh,type),g=tierG(th,type),pmdCost=pmd*4.37*3;
 let droit=kwh<=70?0:kwh<=190?25:kwh<=390?100:200;
@@ -115,7 +114,6 @@ else{tva=(e.total+g.total+pmdCost)*0.19;}
 let total=e.total+g.total+pmdCost+(type=='M'?tax:0)+droit+tva;
 return{kwh,th,e,g,pmdCost,droit,tax:type=='M'?tax:0,tva,total};
 }
-
 let last=null;
 function calc(){
 let type=document.getElementById('client').value,pmd=+document.getElementById('pmd').value,tax=+document.getElementById('tax').value;
@@ -149,6 +147,9 @@ function render(){let a=getS();let d=document.getElementById('list');if(!a.lengt
 function delB(i){let a=getS();a.splice(i,1);localStorage.setItem('sonaga10',JSON.stringify(a));render();}
 function clearAll(){localStorage.removeItem('sonaga10');render();}
 render();
+</script>
+<script>
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 </script>
 </body>
 </html>
